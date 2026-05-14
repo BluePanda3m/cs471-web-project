@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Results MSE Optimizer{% endblock %}
+
+{% block content %}
+<p class="page-label fade-up">Page 4 · Results & Visualizations</p>
+<h1 class="fade-up">Optimization Results</h1>
+
+<!-- stats -->
+<div class="stat-grid fade-up d1">
+  <div class="stat-card">
+    <span class="stat-value">{{ theta0 }}</span>
+    <span class="stat-label">θ₀ (Intercept)</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ theta1 }}</span>
+    <span class="stat-label">θ₁ (Slope)</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ final_mse }}</span>
+    <span class="stat-label">Final MSE</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ reduction }}%</span>
+    <span class="stat-label">Loss Reduction</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ iterations }}</span>
+    <span class="stat-label">Iterations</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-value">{{ lr }}</span>
+    <span class="stat-label">Learning Rate</span>
+  </div>
+</div>
+
+<!-- convergence -->
+<div class="card fade-up d2">
+  <h2>Convergence Curve</h2>
+  <p>
+    The plot below shows how the MSE loss decreases over 500 gradient descent iterations.
+    Most of the reduction happens in the first ~80 iterations, demonstrating the rapid early
+    convergence characteristic of MSE on well-scaled data.
+  </p>
+  <div class="plot-wrap">
+    <img src="data:image/png;base64,{{ convergence_plot }}" alt="Convergence curve" />
+    <p class="plot-caption">Figure 1 — MSE loss vs. iteration number. Initial MSE: {{ initial_mse }} → Final MSE: {{ final_mse }}</p>
+  </div>
+</div>
+
+<!-- regression fit -->
+<div class="card fade-up d3">
+  <h2>Regression Fit</h2>
+  <p>
+    The fitted line $\hat{y} = {{ theta0 }} + {{ theta1 }}\,x$ overlaid on the {{ n_samples }}
+    data points generated from the ground truth $y = 3.5x + 7 + \varepsilon$.
+    The gradient descent solution closely matches the true underlying relationship.
+  </p>
+  <div class="plot-wrap">
+    <img src="data:image/png;base64,{{ fit_plot }}" alt="Regression fit" />
+    <p class="plot-caption">Figure 2 — Scatter plot of data with the optimal regression line.</p>
+  </div>
+</div>
+
+<!-- contour -->
+<div class="card fade-up d4">
+  <h2>Cost Surface & Gradient Descent Path</h2>
+  <p>
+    The contour plot visualizes the 2-D MSE loss surface over the parameter space
+    $(\theta_0, \theta_1)$. The white line traces the exact path taken by gradient
+    descent from initialization at the origin to the optimum (white dot).
+    The elliptical shape confirms the convexity of MSE.
+  </p>
+  <div class="plot-wrap">
+    <img src="data:image/png;base64,{{ contour_plot }}" alt="Cost surface contour" />
+    <p class="plot-caption">Figure 3 — MSE loss surface with gradient descent trajectory overlaid.</p>
+  </div>
+</div>
+
+<div class="card fade-up">
+  <h2>Summary Table</h2>
+  <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
+    <thead>
+      <tr style="border-bottom:1px solid var(--grid); color:var(--muted); text-align:left;">
+        <th style="padding:.6rem;">Parameter</th>
+        <th style="padding:.6rem;">Value</th>
+      </tr>
+    </thead>
+    <tbody style="color:var(--text);">
+      <tr style="border-bottom:1px solid var(--grid);">
+        <td style="padding:.6rem; font-family:var(--mono);">θ₀ (intercept)</td>
+        <td style="padding:.6rem;">{{ theta0 }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--grid);">
+        <td style="padding:.6rem; font-family:var(--mono);">θ₁ (slope)</td>
+        <td style="padding:.6rem;">{{ theta1 }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--grid);">
+        <td style="padding:.6rem; font-family:var(--mono);">Initial MSE</td>
+        <td style="padding:.6rem;">{{ initial_mse }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--grid);">
+        <td style="padding:.6rem; font-family:var(--mono);">Final MSE</td>
+        <td style="padding:.6rem;">{{ final_mse }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--grid);">
+        <td style="padding:.6rem; font-family:var(--mono);">Loss Reduction</td>
+        <td style="padding:.6rem;">{{ reduction }}%</td>
+      </tr>
+      <tr>
+        <td style="padding:.6rem; font-family:var(--mono);">Iterations</td>
+        <td style="padding:.6rem;">{{ iterations }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

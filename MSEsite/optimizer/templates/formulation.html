@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Formulation MSE Optimizer{% endblock %}
+
+{% block content %}
+<h1>Mathematical Formulation</h1>
+
+<div class="section">
+  <h2>4. Prediction Model</h2>
+  <p>A simple linear regression model is used in this project. The prediction equation is:</p>
+  <div class="math-box">
+    $$ \hat{y} = wx + b $$
+  </div>
+  <table>
+    <thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>$\hat{y}$</td><td>Predicted value</td></tr>
+      <tr><td>$x$</td><td>Input variable</td></tr>
+      <tr><td>$w$</td><td>Weight (slope)</td></tr>
+      <tr><td>$b$</td><td>Bias (intercept)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>5. Decision Variables</h2>
+  <p>
+    Decision variables are the variables that can be adjusted during the optimization process
+    in order to achieve the best solution. In this project, the decision variables are
+    <strong>w</strong> and <strong>b</strong>.
+  </p>
+  <ul style="margin: .5rem 0 .8rem 1.5rem; color: #222222; line-height: 2;">
+    <li><strong>w</strong> &mdash; controls the slope of the prediction line</li>
+    <li><strong>b</strong> &mdash; controls the intercept of the prediction line</li>
+  </ul>
+  <p>The optimization algorithm searches for the best values of w and b that minimize the prediction error.</p>
+</div>
+
+<div class="section">
+  <h2>6. Objective Function</h2>
+  <p>
+    The objective function used in this project is the Mean Squared Error (MSE). It measures the
+    average squared difference between the actual values and the predicted values.
+  </p>
+  <div class="math-box">
+    $$ \text{MSE}(w, b) = \frac{1}{n} \sum_{i=1}^{n} \left( y_i - \hat{y}_i \right)^2 $$
+  </div>
+  <table>
+    <thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>$n$</td><td>Number of data points</td></tr>
+      <tr><td>$y_i$</td><td>Actual value</td></tr>
+      <tr><td>$\hat{y}_i$</td><td>Predicted value</td></tr>
+      <tr><td>$(y_i - \hat{y}_i)$</td><td>Prediction error</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>7. Why Mean Squared Error?</h2>
+  <p>
+    Mean Squared Error was selected because it is one of the most effective and widely used loss
+    functions in regression problems. It gives higher penalties to large prediction errors because
+    the error values are squared. This helps improve the accuracy of the model and makes the
+    optimization process more stable.
+  </p>
+  <p>
+    In addition, MSE is mathematically simple and easy to implement using optimization algorithms
+    such as Gradient Descent.
+  </p>
+</div>
+
+<div class="section">
+  <h2>8. Mathematical Formulation</h2>
+  <p>The prediction model is expressed as:</p>
+  <div class="math-box">$$ \hat{y}_i = wx_i + b $$</div>
+  <p>The prediction error for each data point is:</p>
+  <div class="math-box">$$ e_i = y_i - \hat{y}_i = y_i - (wx_i + b) $$</div>
+  <p>The Mean Squared Error becomes:</p>
+  <div class="math-box">$$ \text{MSE}(w, b) = \frac{1}{n} \sum_{i=1}^{n} \left( y_i - (wx_i + b) \right)^2 $$</div>
+  <p>Therefore, the optimization problem is formulated as:</p>
+  <div class="math-box">$$ \min_{w,\, b} \;\; \frac{1}{n} \sum_{i=1}^{n} \left( y_i - (wx_i + b) \right)^2 $$</div>
+
+  <h3>Gradient of MSE</h3>
+  <p>The partial derivatives used by gradient descent are:</p>
+  <div class="math-box">
+    $$ \frac{\partial \text{MSE}}{\partial w} = \frac{-2}{n} \sum_{i=1}^{n} x_i \left( y_i - \hat{y}_i \right) $$
+    $$ \frac{\partial \text{MSE}}{\partial b} = \frac{-2}{n} \sum_{i=1}^{n} \left( y_i - \hat{y}_i \right) $$
+  </div>
+</div>
+
+<div class="section">
+  <h2>9. Constraints</h2>
+  <p>
+    This project represents an <strong>unconstrained optimization problem</strong> because there
+    are no explicit restrictions on the values of the decision variables w and b. Therefore, the
+    optimization algorithm is free to search for any values that minimize the objective function.
+  </p>
+</div>
+{% endblock %}

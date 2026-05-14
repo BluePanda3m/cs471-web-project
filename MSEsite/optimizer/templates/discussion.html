@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Discussion  MSE Optimizer{% endblock %}
+
+{% block content %}
+<p class="page-label fade-up">Page 5 · Discussion & Conclusions</p>
+<h1 class="fade-up">Discussion</h1>
+
+<div class="card fade-up d1">
+  <h2>Interpretation of Results</h2>
+  <p>
+    The gradient descent algorithm successfully minimized the MSE loss function, finding
+    parameters $\theta_0 \approx 7$ and $\theta_1 \approx 3.5$ — very close to the true
+    data-generating parameters ($\theta_0^* = 7$, $\theta_1^* = 3.5$). The small residual error
+    arises from the Gaussian noise added to the dataset, which is irreducible.
+  </p>
+  <p>
+    The convergence plot shows the classic behavior of gradient descent on a strongly convex
+    objective: fast initial descent followed by progressively smaller updates as the algorithm
+    approaches the optimum. The majority of loss reduction occurs within the first 100 iterations.
+  </p>
+</div>
+
+<div class="card fade-up d2">
+  <h2>Effect of Hyperparameters</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+    <div>
+      <h3>Learning Rate α</h3>
+      <p>
+        A learning rate of $\alpha = 0.01$ was chosen after testing. Values that are too large
+        ($\alpha > 0.1$) cause divergence; values too small ($\alpha < 0.001$) converge slowly.
+        $\alpha = 0.01$ provides a good balance.
+      </p>
+    </div>
+    <div>
+      <h3>Number of Iterations</h3>
+      <p>
+        500 iterations is more than sufficient for this problem — the loss plateaus around
+        iteration 150. For larger datasets or higher-dimensional problems, more iterations
+        or early stopping would be needed.
+      </p>
+    </div>
+    <div>
+      <h3>Initialization</h3>
+      <p>
+        We initialized $\theta = \mathbf{0}$. Because MSE is convex, the choice of
+        initialization only affects the trajectory, not the final solution.
+      </p>
+    </div>
+    <div>
+      <h3>Dataset Size</h3>
+      <p>
+        With 80 samples and a signal-to-noise ratio typical for regression problems, the
+        estimator is statistically consistent and the gradient estimates are stable.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="card fade-up d3">
+  <h2>Limitations</h2>
+  <p>
+    The current implementation uses a <strong style="color:var(--text)">fixed learning rate</strong>.
+    More advanced variants — such as Adam, RMSProp, or learning-rate scheduling — can
+    converge faster or more robustly on ill-conditioned problems.
+  </p>
+  <p>
+    Additionally, <strong style="color:var(--text)">batch gradient descent</strong> (used here) computes
+    the gradient over the entire dataset at every step, which is expensive for large datasets.
+    Stochastic Gradient Descent (SGD) or mini-batch GD offer better scalability at the cost of
+    noisier updates.
+  </p>
+</div>
+
+<div class="card fade-up d4">
+  <h2>Conclusions</h2>
+  <p>
+    This project demonstrated the full pipeline of mathematical optimization applied to a
+    regression problem:
+  </p>
+  <ol style="padding-left:1.4rem; color:var(--muted); line-height:2.1;">
+    <li>We formulated the problem as minimizing MSE — a smooth, convex quadratic loss.</li>
+    <li>We derived the gradient analytically and implemented it in pure NumPy.</li>
+    <li>Gradient descent converged to parameters very close to the ground truth within 500 steps.</li>
+    <li>Three visualizations confirmed convergence, fit quality, and the trajectory on the cost surface.</li>
+  </ol>
+  <p style="margin-top:1rem;">
+    The experiment confirms that gradient descent is a reliable, interpretable algorithm for
+    MSE minimization, and that understanding the mathematical structure of the loss function
+    is key to choosing appropriate hyperparameters.
+  </p>
+</div>
+
+<div class="card fade-up">
+  <h2>References & Tools</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.4rem;">
+    <span class="tag">Python 3.11</span>
+    <span class="tag">NumPy</span>
+    <span class="tag">Matplotlib</span>
+    <span class="tag">Django 4.x</span>
+    <span class="tag">MathJax 3</span>
+  </div>
+  <p style="margin-top:1rem; font-size:.85rem;">
+    Goodfellow, I., Bengio, Y., Courville, A. — <em>Deep Learning</em>, MIT Press, 2016. &nbsp;·&nbsp;
+    Boyd, S., Vandenberghe, L. — <em>Convex Optimization</em>, Cambridge University Press, 2004.
+  </p>
+</div>
+{% endblock %}

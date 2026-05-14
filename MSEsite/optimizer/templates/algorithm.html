@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Algorithm — MSE Optimizer{% endblock %}
+
+{% block content %}
+<p class="page-label fade-up">Page 3 · Algorithm</p>
+<h1 class="fade-up">Gradient Descent</h1>
+
+<div class="card fade-up d1">
+  <h2>How It Works</h2>
+  <p>
+    Gradient Descent is an iterative first-order optimization algorithm. Starting from an
+    initial guess $\theta^{(0)}$, it repeatedly moves in the direction of the <em>steepest descent</em>
+    of the loss surface — i.e., opposite to the gradient.
+  </p>
+  <div class="math-box">
+    $$ \theta^{(t+1)} = \theta^{(t)} - \alpha \cdot \nabla_\theta \mathcal{L}\!\left(\theta^{(t)}\right) $$
+  </div>
+  <p>
+    where $\alpha$ is the <strong style="color:var(--text)">learning rate</strong> — a small positive
+    scalar controlling the step size. We use $\alpha = 0.01$ and run for $500$ iterations.
+  </p>
+</div>
+
+<div class="card fade-up d2">
+  <h2>Algorithm Steps</h2>
+  <div style="counter-reset:step;">
+    {% for step in "12345"|make_list %}
+    {% endfor %}
+  </div>
+  <ol style="padding-left:1.4rem; color:var(--muted); line-height:2;">
+    <li>Initialize $\theta = \mathbf{0}$</li>
+    <li>Compute predictions: $\hat{\mathbf{y}} = \mathbf{X}\theta$</li>
+    <li>Compute MSE loss: $\mathcal{L} = \frac{1}{n}\|\mathbf{y}-\hat{\mathbf{y}}\|^2$</li>
+    <li>Compute gradient: $g = \frac{2}{n}\mathbf{X}^\top(\hat{\mathbf{y}}-\mathbf{y})$</li>
+    <li>Update parameters: $\theta \leftarrow \theta - \alpha g$</li>
+    <li>Repeat steps 2–5 until convergence</li>
+  </ol>
+</div>
+
+<div class="card fade-up d3">
+  <h2>Python Implementation</h2>
+  <span class="tag">mse_algorithm.py</span>
+  <pre>
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">def</span> <span class="fn">compute_mse</span>(y_true, y_pred):
+    <span class="str">"""MSE = (1/n) * sum((y - y_hat)^2)"""</span>
+    n = <span class="fn">len</span>(y_true)
+    <span class="kw">return</span> (1 / n) * np.<span class="fn">sum</span>((y_true - y_pred) ** 2)
+
+
+<span class="kw">def</span> <span class="fn">compute_gradient</span>(y_true, X, theta):
+    <span class="str">"""Gradient: (2/n) * X^T * (X*theta - y)"""</span>
+    n = <span class="fn">len</span>(y_true)
+    y_pred = X @ theta
+    grad   = (2 / n) * X.T @ (y_pred - y_true)
+    <span class="kw">return</span> grad
+
+
+<span class="kw">def</span> <span class="fn">gradient_descent</span>(X, y_true, learning_rate=<span class="nb">0.01</span>, iterations=<span class="nb">500</span>):
+    theta        = np.<span class="fn">zeros</span>(X.shape[1])   <span class="cm"># initialise at zero</span>
+    cost_history = []
+
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(iterations):
+        y_pred = X @ theta
+        cost   = <span class="fn">compute_mse</span>(y_true, y_pred)
+        cost_history.<span class="fn">append</span>(cost)
+
+        grad  = <span class="fn">compute_gradient</span>(y_true, X, theta)
+        theta = theta - learning_rate * grad  <span class="cm"># update rule</span>
+
+    <span class="kw">return</span> theta, cost_history
+  </pre>
+</div>
+
+<div class="card fade-up">
+  <h2>Convergence Guarantee</h2>
+  <p>
+    Because MSE is <strong style="color:var(--text)">strongly convex</strong> and the gradient is
+    Lipschitz continuous, gradient descent with a sufficiently small learning rate is guaranteed
+    to converge to the global optimum $\theta^*$. The convergence rate is linear:
+  </p>
+  <div class="math-box">
+    $$ \mathcal{L}(\theta^{(t)}) - \mathcal{L}(\theta^*) \;\leq\; (1 - \alpha \mu)^t
+       \left[\mathcal{L}(\theta^{(0)}) - \mathcal{L}(\theta^*)\right] $$
+  </div>
+  <p>
+    where $\mu$ is the strong-convexity constant. In practice, we observe rapid convergence
+    within the first 100 iterations — see the Results page.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem;">
+    <span class="tag">learning_rate = 0.01</span>
+    <span class="tag">iterations = 500</span>
+    <span class="tag">init: θ = [0, 0]</span>
+    <span class="tag">numpy only</span>
+  </div>
+</div>
+{% endblock %}

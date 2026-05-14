@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Home  MSE Optimizer{% endblock %}
+
+{% block content %}
+<h1>Mean Squared Error Minimization</h1>
+<p>CS348 Course Project &mdash; Optimization</p>
+
+<hr style="margin: 1.2rem 0; border: none; border-top: 1px solid #dddddd;">
+
+<div class="section">
+  <h2>1. Introduction</h2>
+  <p>
+    Optimization is an important concept in mathematics, computer science, and machine learning.
+    It is used to find the best possible solution for a problem by minimizing or maximizing a
+    specific function. In machine learning applications, optimization is commonly used to reduce
+    prediction errors and improve model performance.
+  </p>
+  <p>
+    In this project, we focus on minimizing the prediction error using the Mean Squared Error (MSE)
+    function. MSE is one of the most widely used loss functions in regression problems because it
+    measures the difference between the actual values and the predicted values accurately.
+  </p>
+  <p>
+    The main objective of this project is to formulate the optimization problem mathematically and
+    find the values of the model parameters that minimize the error. This project also helps connect
+    the theoretical understanding of optimization with practical implementation and visualization.
+  </p>
+</div>
+
+<div class="section">
+  <h2>2. Optimization Idea</h2>
+  <p>
+    The main idea of optimization in this project is to minimize the difference between the predicted
+    output and the actual output. A prediction model is used to estimate output values based on input
+    data. However, the predicted values are usually not exactly equal to the actual values, which
+    creates an error.
+  </p>
+  <p>
+    To improve the model performance, we use an objective function that measures this error and then
+    try to minimize it. In this project, the Mean Squared Error (MSE) is used as the objective
+    function. The optimization process searches for the best parameter values that produce the
+    smallest possible error.
+  </p>
+</div>
+
+<div class="section">
+  <h2>3. Problem Statement</h2>
+  <p>
+    Given a dataset containing input values and actual output values, the problem is to determine
+    the optimal model parameters <strong>w</strong> (weight/slope) and <strong>b</strong>
+    (bias/intercept) that minimize the prediction error.
+  </p>
+  <p>
+    The prediction model attempts to estimate the output values, while the optimization process
+    adjusts the model parameters until the Mean Squared Error becomes as small as possible.
+  </p>
+  <div class="math-box">
+    $$ \min_{w,\, b} \; \text{MSE}(w, b) = \frac{1}{n} \sum_{i=1}^{n} \left( y_i - (wx_i + b) \right)^2 $$
+  </div>
+</div>
+
+<div class="section">
+  <h2>Project Summary</h2>
+  <div class="stat-grid">
+    <div class="stat-card"><span class="stat-value">MSE</span><span class="stat-label">Loss Function</span></div>
+    <div class="stat-card"><span class="stat-value">GD</span><span class="stat-label">Algorithm</span></div>
+    <div class="stat-card"><span class="stat-value">500</span><span class="stat-label">Iterations</span></div>
+    <div class="stat-card"><span class="stat-value">0.01</span><span class="stat-label">Learning Rate</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Navigate</h2>
+  <a class="btn" href="/formulation/">Math Formulation</a>
+  <a class="btn" href="/algorithm/">Algorithm</a>
+  <a class="btn" href="/results/">Results</a>
+  <a class="btn" href="/discussion/">Discussion</a>
+</div>
+{% endblock %}

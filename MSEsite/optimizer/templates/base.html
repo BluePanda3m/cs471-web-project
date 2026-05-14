@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}MSE Optimizer{% endblock %}</title>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #ffffff;
+      color: #111111;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      background: #f0f0f0;
+      padding: .6rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 2px solid #cccccc;
+    }
+
+    .nav-brand {
+      font-weight: bold;
+      color: #111111;
+      text-decoration: none;
+      margin-right: auto;
+    }
+
+    .nav-links { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+    .nav-links a {
+      background: #dddddd;
+      color: #111111;
+      text-decoration: none;
+      padding: .3rem .9rem;
+      border-radius: 3px;
+      font-size: .85rem;
+    }
+
+    .nav-links a:hover { background: #cccccc; }
+    .nav-links a.active { background: #2563eb; color: #ffffff; }
+
+    /* MAIN */
+    main { flex: 1; padding: 2.5rem 2rem 4rem; max-width: 880px; margin: 0 auto; width: 100%; }
+
+    h1 { font-size: 1.8rem; margin-bottom: 1rem; }
+    h2 { font-size: 1.2rem; margin: 2rem 0 .5rem; border-bottom: 1px solid #dddddd; padding-bottom: .3rem; }
+    h3 { font-size: 1rem; margin: 1.2rem 0 .3rem; color: #444444; }
+    p  { margin-bottom: .8rem; color: #222222; }
+
+    /* SECTION */
+    .section { margin-bottom: 2rem; }
+
+    /* MATH */
+    .math-box {
+      background: #f9f9f9;
+      border-left: 4px solid #2563eb;
+      padding: .7rem 1rem;
+      margin: .8rem 0;
+      overflow-x: auto;
+    }
+
+    /* CODE */
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: .8rem;
+      line-height: 1.65;
+      margin: .8rem 0;
+    }
+
+    .kw  { color: #7c3aed; }
+    .fn  { color: #1d4ed8; }
+    .str { color: #15803d; }
+    .cm  { color: #888888; font-style: italic; }
+    .nb  { color: #b45309; }
+
+    /* STATS */
+    .stat-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+    .stat-card { background: #f0f0f0; padding: .8rem 1.2rem; min-width: 130px; text-align: center; }
+    .stat-value { font-size: 1.4rem; font-weight: bold; color: #2563eb; display: block; }
+    .stat-label { font-size: .72rem; color: #666666; text-transform: uppercase; margin-top: .2rem; }
+
+    /* PLOTS */
+    .plot-wrap { margin: 1rem 0; text-align: center; }
+    .plot-wrap img { width: 100%; max-width: 700px; }
+    .plot-caption { font-size: .78rem; color: #666666; margin-top: .4rem; }
+
+    /* BUTTONS (nav links style) */
+    .btn {
+      display: inline-block;
+      background: #2563eb;
+      color: #ffffff;
+      text-decoration: none;
+      padding: .35rem 1rem;
+      border-radius: 3px;
+      font-size: .85rem;
+      margin: .2rem .1rem;
+    }
+    .btn:hover { background: #1d4ed8; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+    th { background: #f0f0f0; text-align: left; padding: .5rem .7rem; border-bottom: 2px solid #cccccc; }
+    td { padding: .5rem .7rem; border-bottom: 1px solid #eeeeee; }
+
+    /* FOOTER */
+    footer { background: #f0f0f0; border-top: 2px solid #cccccc; padding: .8rem 2rem; text-align: center; font-size: .78rem; color: #666666; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">MSE Optimizer</a>
+  <div class="nav-links">
+    <a href="/"             {% if request.resolver_match.url_name == 'home'        %}class="active"{% endif %}>Home</a>
+    <a href="/formulation/" {% if request.resolver_match.url_name == 'formulation' %}class="active"{% endif %}>Formulation</a>
+    <a href="/algorithm/"   {% if request.resolver_match.url_name == 'algorithm'   %}class="active"{% endif %}>Algorithm</a>
+    <a href="/results/"     {% if request.resolver_match.url_name == 'results'     %}class="active"{% endif %}>Results</a>
+    <a href="/discussion/"  {% if request.resolver_match.url_name == 'discussion'  %}class="active"{% endif %}>Discussion</a>
+  </div>
+</nav>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>MSE Optimization Project &nbsp;&mdash;&nbsp; Gradient Descent &nbsp;&mdash;&nbsp; CS348</footer>
+</body>
+</html>
