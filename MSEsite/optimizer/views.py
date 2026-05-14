@@ -10,13 +10,13 @@ from .mse_algorithm import build_dataset, gradient_descent, compute_mse
 
 
 PALETTE = {
-    'bg':      '#0f1117',
-    'surface': '#1a1d27',
-    'accent':  '#6c63ff',
-    'accent2': '#ff6584',
-    'text':    '#e8e8f0',
+    'bg':      '#ffffff',
+    'surface': '#f5f5f5',
+    'accent':  '#2563eb',
+    'accent2': '#dc2626',
+    'text':    '#111111',
     'muted':   '#6b7280',
-    'grid':    '#2a2d3a',
+    'grid':    '#e5e7eb',
 }
 
 def _fig_to_b64(fig):
@@ -53,7 +53,7 @@ def algorithm_view(request):
     return render(request, 'algorithm.html')
 
 def results(request):
-    # 1. Convergence curve
+    #convergence curve
     fig1, ax1 = plt.subplots(figsize=(7, 3.8))
     fig1.patch.set_facecolor(PALETTE['bg'])
     ax1.plot(ITERATIONS, cost_history, color=PALETTE['accent'], linewidth=2)
@@ -62,7 +62,7 @@ def results(request):
     _style_ax(ax1, 'Convergence — MSE over Iterations')
     convergence_plot = _fig_to_b64(fig1)
 
-    # 2. Regression fit
+    # regression fit
     fig2, ax2 = plt.subplots(figsize=(7, 3.8))
     fig2.patch.set_facecolor(PALETTE['bg'])
     ax2.scatter(X_raw, y_true, color=PALETTE['accent2'], alpha=0.55, s=28, label='Data points')
@@ -74,7 +74,7 @@ def results(request):
     _style_ax(ax2, 'Regression Fit — Final Parameters')
     fit_plot = _fig_to_b64(fig2)
 
-    # 3. Cost surface contour
+    # cost surface contour
     t0_vals = np.linspace(theta_final[0] - 12, theta_final[0] + 12, 80)
     t1_vals = np.linspace(theta_final[1] - 2,  theta_final[1] + 2,  80)
     T0, T1 = np.meshgrid(t0_vals, t1_vals)

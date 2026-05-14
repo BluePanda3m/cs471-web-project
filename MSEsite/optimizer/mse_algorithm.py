@@ -50,6 +50,6 @@ def build_dataset(n_samples=80, noise=8.0, seed=42):
     X_raw = np.linspace(0, 10, n_samples)
     y = 3.5 * X_raw + 7 + np.random.randn(n_samples) * noise
 
-    # Add bias column
+    
     X = np.column_stack([np.ones(n_samples), X_raw])
     return X_raw, X, y
