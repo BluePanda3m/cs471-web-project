@@ -17,7 +17,7 @@ develop-eggs/
 lib/
 lib64/
 mseenv/
-
+.history/ 
 # Virtual Environment
 venv/
 env/
